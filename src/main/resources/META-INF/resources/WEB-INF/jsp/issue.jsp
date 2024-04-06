@@ -36,6 +36,5 @@
 
 		</tbody>
 	</table>
-	<a href="issue-book" class="btn btn-success">Issue Book</a>
 </div>
 <%@ include file="common/footer.jspf"%>

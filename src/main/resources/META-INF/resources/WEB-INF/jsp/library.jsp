@@ -28,12 +28,13 @@
 					<td>${lib.authorName}</td>
 					<td>${lib.price}</td>
 					<td>${lib.done}</td>
-					<td><a href="issue-book?bookId=${lib.bookId}"
+					<td><a
+						href="issue-book?bookId=${lib.bookId}&bookName=${lib.bookName}"
 						class="btn btn-success">ISSUE</a></td>
 					<td><a href="update-book?bookId=${lib.bookId}"
-						class="btn btn-success">UPDATE</a></td>
+						class="btn btn-dark">UPDATE</a></td>
 					<td><a href="delete-book?bookId=${lib.bookId}"
-						class="btn btn-warning">DELETE</a></td>
+						class="btn btn-danger">DELETE</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

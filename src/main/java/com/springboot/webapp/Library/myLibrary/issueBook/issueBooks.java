@@ -8,9 +8,14 @@ import jakarta.persistence.Id;
 @Entity
 public class issueBooks {
 
-	public issueBooks(int bookId, int studentId, String studentName, String bookName, LocalDate issueDate,
-			LocalDate returnDate) {
+	public issueBooks() {
+
+	}
+
+	public issueBooks(String username, int bookId, int studentId, String studentName, String bookName,
+			LocalDate issueDate, LocalDate returnDate) {
 		super();
+		this.username = username;
 		this.bookId = bookId;
 		this.studentId = studentId;
 		this.studentName = studentName;
@@ -22,6 +27,7 @@ public class issueBooks {
 	@Id
 	private int bookId;
 	private int studentId;
+	private String username;
 	private String studentName;
 	private String bookName;
 	private LocalDate issueDate;
@@ -75,10 +81,19 @@ public class issueBooks {
 		this.returnDate = returnDate;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 	@Override
 	public String toString() {
-		return "issueBooks [bookId=" + bookId + ", studentId=" + studentId + ", studentName=" + studentName
-				+ ", bookName=" + bookName + ", issueDate=" + issueDate + ", returnDate=" + returnDate + "]";
+		return "issueBooks [bookId=" + bookId + ", studentId=" + studentId + ", username=" + username + ", studentName="
+				+ studentName + ", bookName=" + bookName + ", issueDate=" + issueDate + ", returnDate=" + returnDate
+				+ "]";
 	}
 
 }

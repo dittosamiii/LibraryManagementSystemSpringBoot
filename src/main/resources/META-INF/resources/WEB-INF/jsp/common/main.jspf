@@ -1,0 +1,18 @@
+<style media="screen">
+* {
+	color: #ffff;
+}
+
+input {
+	color: black;
+}
+
+body {
+	background:
+		url("https://pbs.twimg.com/media/FiLqLNLXwAMdw3T?format=jpg&name=4096x4096");
+}
+
+. {
+	background: #30384f;
+}
+</style>

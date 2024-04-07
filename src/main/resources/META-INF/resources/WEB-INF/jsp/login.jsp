@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<title>My Library</title>
+<%@ include file="common/header.jspf"%>
+<%@ include file="style/loginStyle.jspf"%>
 
-<%@ include file="common/style.jspf"%>
-</head>
 <body>
 	<div class="background">
 		<div class="shape"></div>
@@ -16,9 +12,8 @@
 		<label for="username">Username</label> <input type="text"
 			placeholder="Email or Phone" name="username"> <label
 			for="password">Password</label> <input type="password"
-			placeholder="Password" id="password" name="password">
-
-		<button class="btn btn-success">Log In</button>
+			placeholder="Password" id="password" name="password"> <input
+			type="submit" value="LogIn" class="inputClass">
 		<pre>${errorMessage}</pre>
 
 	</form>

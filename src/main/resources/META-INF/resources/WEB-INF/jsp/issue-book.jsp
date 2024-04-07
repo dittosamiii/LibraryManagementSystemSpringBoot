@@ -1,8 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ include file="common/main.jspf"%>
+<%@ include file="style/style.jspf"%>
 <%@ include file="common/navigation.jspf"%>
 <%@ include file="common/header.jspf"%>
-<%@ include file="common/style.jspf"%>
 
 <div class="container">
 	<form:form method="post" modelAttribute="issueBook">
@@ -17,6 +16,7 @@
 			Return Date: <form:input type="date" path="returnDate"
 			required="required" />
 		<form:input type="hidden" path="bookName" required="required" />
+		<br>
 		<input type="submit" class="btn btn-success" />
 	</form:form>
 </div>

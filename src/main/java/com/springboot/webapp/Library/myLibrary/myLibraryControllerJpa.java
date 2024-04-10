@@ -45,7 +45,7 @@ public class myLibraryControllerJpa {
 			return "redirect:login";
 		}
 		String username = (String) model.get("name");
-		myLibrary book = new myLibrary(username, 0, "", "", 0, true);
+		myLibrary book = new myLibrary(username, 0, "", "", 0);
 		model.put("library", book);
 		return "add-book";
 
@@ -86,7 +86,7 @@ public class myLibraryControllerJpa {
 
 		myLibrary book = mylibraryrepo.findById(bookId).get();
 		model.addAttribute("library", book);
-		return "add-book";
+		return "update-add-book";
 
 	}
 
@@ -97,7 +97,7 @@ public class myLibraryControllerJpa {
 		}
 
 		if (result.hasErrors()) {
-			return "add-book";
+			return "update-add-book";
 		}
 		String username = (String) model.get("name");
 		library.setUsername(username);

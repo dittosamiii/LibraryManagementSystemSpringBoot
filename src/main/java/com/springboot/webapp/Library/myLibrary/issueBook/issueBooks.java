@@ -3,18 +3,31 @@ package com.springboot.webapp.Library.myLibrary.issueBook;
 import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 @Entity
 public class issueBooks {
 
+	private int bookId;
+	@Id
+	@GeneratedValue
+	private int sequence;
+	private int studentId;
+	private String username;
+	private String studentName;
+	private String bookName;
+	private LocalDate issueDate;
+	private LocalDate returnDate;
+
 	public issueBooks() {
 
 	}
 
-	public issueBooks(String username, int bookId, int studentId, String studentName, String bookName,
+	public issueBooks(int sequence, String username, int bookId, int studentId, String studentName, String bookName,
 			LocalDate issueDate, LocalDate returnDate) {
 		super();
+		this.sequence = sequence;
 		this.username = username;
 		this.bookId = bookId;
 		this.studentId = studentId;
@@ -23,15 +36,6 @@ public class issueBooks {
 		this.issueDate = issueDate;
 		this.returnDate = returnDate;
 	}
-
-	@Id
-	private int bookId;
-	private int studentId;
-	private String username;
-	private String studentName;
-	private String bookName;
-	private LocalDate issueDate;
-	private LocalDate returnDate;
 
 	public int getBookId() {
 		return bookId;
@@ -89,11 +93,19 @@ public class issueBooks {
 		this.username = username;
 	}
 
+	public int getSequence() {
+		return sequence;
+	}
+
+	public void setSequence(int sequence) {
+		this.sequence = sequence;
+	}
+
 	@Override
 	public String toString() {
-		return "issueBooks [bookId=" + bookId + ", studentId=" + studentId + ", username=" + username + ", studentName="
-				+ studentName + ", bookName=" + bookName + ", issueDate=" + issueDate + ", returnDate=" + returnDate
-				+ "]";
+		return "issueBooks [bookId=" + bookId + ", sequence=" + sequence + ", studentId=" + studentId + ", username="
+				+ username + ", studentName=" + studentName + ", bookName=" + bookName + ", issueDate=" + issueDate
+				+ ", returnDate=" + returnDate + "]";
 	}
 
 }

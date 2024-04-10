@@ -8,26 +8,23 @@ import jakarta.persistence.Id;
 public class myLibrary {
 
 	@Id
-	@GeneratedValue
 	private int bookId;
 	private String username;
 	private String bookName;
 	private String authorName;
-	private int price;
-	private boolean done;
+	private int totalBooks;
 
 	public myLibrary() {
 
 	}
 
-	public myLibrary(String username, int bookId, String bookName, String authorName, int price, boolean done) {
+	public myLibrary(String username, int bookId, String bookName, String authorName, int totalBooks) {
 		super();
 		this.username = username;
 		this.bookId = bookId;
 		this.bookName = bookName;
 		this.authorName = authorName;
-		this.price = price;
-		this.done = done;
+		this.totalBooks = totalBooks;
 	}
 
 	public int getBookId() {
@@ -54,22 +51,6 @@ public class myLibrary {
 		this.authorName = authorName;
 	}
 
-	public int getPrice() {
-		return price;
-	}
-
-	public void setPrice(int price) {
-		this.price = price;
-	}
-
-	public boolean isDone() {
-		return done;
-	}
-
-	public void setDone(boolean done) {
-		this.done = done;
-	}
-
 	public String getUsername() {
 		return username;
 	}
@@ -79,10 +60,18 @@ public class myLibrary {
 		;
 	}
 
+	public int getTotalBooks() {
+		return totalBooks;
+	}
+
+	public void setTotalBooks(int totalBooks) {
+		this.totalBooks = totalBooks;
+	}
+
 	@Override
 	public String toString() {
-		return "myLibrary [username=" + username + ", bookId=" + bookId + ", bookName=" + bookName + ", authorName="
-				+ authorName + ", price=" + price + ", done=" + done + "]";
+		return "myLibrary [bookId=" + bookId + ", username=" + username + ", bookName=" + bookName + ", authorName="
+				+ authorName + ", totalBooks=" + totalBooks + "]";
 	}
 
 }

@@ -1,21 +1,20 @@
-<%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <%@ include file="common/header.jspf"%>
 <%@ include file="style/mainStyle.jspf"%>
 <%@ include file="common/navigation.jspf"%>
+
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <div class="container">
 
 	<h1>WELCOME ${name}</h1>
 	<hr>
 	<h2>Library Books:</h2>
 	<div class="table-responsive">
-		<table
-			class="table table-scrollable">
+		<table class="table table-scrollable">
 			<thead>
 				<tr>
 					<th>BOOK ID</th>
 					<th>BOOK NAME</th>
 					<th>AUTHOR NAME</th>
-					<th>PRICE</th>
 					<th>AVAILABLE</th>
 					<th></th>
 					<th></th>
@@ -28,8 +27,7 @@
 						<td>${lib.bookId}</td>
 						<td>${lib.bookName}</td>
 						<td>${lib.authorName}</td>
-						<td>${lib.price}</td>
-						<td>${lib.done}</td>
+						<td>${lib.totalBooks}</td>
 						<td><a
 							href="issue-book?bookId=${lib.bookId}&bookName=${lib.bookName}"
 							class="btn btn-success">ISSUE</a></td>

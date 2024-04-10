@@ -15,6 +15,7 @@
 			required="required" />
 			Return Date: <form:input type="date" path="returnDate"
 			required="required" />
+		<pre>${errorMessage}</pre>
 		<form:input type="hidden" path="bookName" required="required" />
 		<br>
 		<input type="submit" class="btn btn-success" />

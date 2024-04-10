@@ -8,7 +8,7 @@
 <div class="container">
 	<form:form method="post" modelAttribute="library">
 		<h2>Enter Book Details:</h2>
-			Book Id: <form:input type="text" path="bookId" required="required" />
+		<form:input type="hidden" path="bookId" required="required" />
 			Book Name: <form:input type="text" path="bookName"
 			required="required" />
 			Author Name: <form:input type="text" path="authorName"

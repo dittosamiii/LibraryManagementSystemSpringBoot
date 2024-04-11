@@ -38,7 +38,7 @@ public class LoginController {
 		return "login";
 	}
 
-	@RequestMapping("welcome")
+	@RequestMapping("/welcome")
 	public String welcomePage(HttpSession session) {
 		if (session.getAttribute("loggedInUser") == null) {
 			return "redirect:login";

@@ -7,34 +7,28 @@
 
 	<h1>WELCOME ${name}</h1>
 	<hr>
-	<h2>Issued Books:</h2>
+	<h2>Fine:</h2>
 	<div class="table-responsive">
 		<table class="table table-scrollable">
 			<thead>
 				<tr>
 					<th>BOOK ID</th>
 					<th>STUDENT ID</th>
-					<th>STUDENT NAME</th>
-					<th>BOOK NAME</th>
 					<th>ISSUE DATE</th>
 					<th>RETURN DATE</th>
-					<th></th>
-					<th></th>
+					<th>RETURNED DATE</th>
+					<th>AMOUNT</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${issueBook}" var="lib">
+				<c:forEach items="${fine}" var="lib">
 					<tr>
 						<td>${lib.bookId}</td>
 						<td>${lib.studentId}</td>
-						<td>${lib.studentName}</td>
-						<td>${lib.bookName}</td>
 						<td>${lib.issueDate}</td>
 						<td>${lib.returnDate}</td>
-						<td><a href="update-issue-book?sequence=${lib.sequence}"
-							class="btn btn-light">UPDATE</a></td>
-						<td><a href="/return?sequence=${lib.sequence}"
-							class="btn btn-warning">RETURN</a></td>
+						<td>${lib.returnedDate}</td>
+						<td>${lib.amount}</td>
 					</tr>
 				</c:forEach>
 			</tbody>

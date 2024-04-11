@@ -127,22 +127,4 @@ public class issueBookControllerJpa {
 		}
 	}
 
-	@RequestMapping(value = "/return-issue-book")
-	public String returnBooks(@RequestParam int sequence, HttpSession session) {
-		if (session.getAttribute("loggedInUser") == null) {
-			return "redirect:login";
-		}
-
-		// Return Book Logic which returns the book back to the library by increasing
-		// value of the available book
-		issueBooks issuedBook = issueBookRepo.findById(sequence).get();
-		myLibrary libraryBook = myLibraryRepo.findById(issuedBook.getBookId()).get();
-		libraryBook.setTotalBooks(libraryBook.getTotalBooks() + 1);
-
-		myLibraryRepo.save(libraryBook);
-		issueBookRepo.delete(issuedBook);
-
-		return "redirect:issue";
-
-	}
 }

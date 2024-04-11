@@ -3,11 +3,11 @@
 <script
 	src="webjars/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
-<script>
+<!--  <script>
 	function cancelLogout() {
 		window.location.href = 'welcome'; // Redirect to welcome.jsp
 	}
-</script>
+</script>-->
 
 </body>
 

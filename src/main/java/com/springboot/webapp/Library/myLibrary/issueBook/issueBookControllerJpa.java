@@ -2,6 +2,7 @@ package com.springboot.webapp.Library.myLibrary.issueBook;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -50,6 +51,7 @@ public class issueBookControllerJpa {
 		if (session.getAttribute("loggedInUser") == null) {
 			return "redirect:login";
 		}
+
 		String username = (String) model.get("name");
 		issueBooks book = new issueBooks(0, username, 0, 0, "", "", LocalDate.now(), LocalDate.now());
 		model.put("issueBook", book);
@@ -71,6 +73,12 @@ public class issueBookControllerJpa {
 		}
 		String username = (String) model.get("name");
 		book.setUsername(username);
+
+		myLibrary currBook = myLibraryRepo.findById(bookId).get();
+		if (currBook.getTotalBooks() == 0) {
+			model.put("errorMessage", "Book not available");
+			return "issue-book";
+		}
 
 		// Return Date Logic where return date is not before the issue date
 		// Check if issueDate is before returnDate

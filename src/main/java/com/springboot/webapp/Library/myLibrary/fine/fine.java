@@ -3,11 +3,15 @@ package com.springboot.webapp.Library.myLibrary.fine;
 import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 @Entity
 public class fine {
+
 	@Id
+	@GeneratedValue
+	private int sequence;
 	private int bookId;
 	private int studentId;
 	private LocalDate issueDate;
@@ -20,9 +24,10 @@ public class fine {
 
 	}
 
-	public fine(String username, int bookId, int studentId, LocalDate issueDate, LocalDate returnDate,
+	public fine(int sequence, String username, int bookId, int studentId, LocalDate issueDate, LocalDate returnDate,
 			LocalDate returnedDate, int amount) {
 		super();
+		this.sequence = sequence;
 		this.username = username;
 		this.bookId = bookId;
 		this.studentId = studentId;
@@ -88,10 +93,19 @@ public class fine {
 		this.username = username;
 	}
 
+	public int getSequence() {
+		return sequence;
+	}
+
+	public void setSequence(int sequence) {
+		this.sequence = sequence;
+	}
+
 	@Override
 	public String toString() {
-		return "fine [bookId=" + bookId + ", studentId=" + studentId + ", issueDate=" + issueDate + ", returnDate="
-				+ returnDate + ", returnedDate=" + returnedDate + ", amount=" + amount + ", username=" + username + "]";
+		return "fine [sequence=" + sequence + ", bookId=" + bookId + ", studentId=" + studentId + ", issueDate="
+				+ issueDate + ", returnDate=" + returnDate + ", returnedDate=" + returnedDate + ", amount=" + amount
+				+ ", username=" + username + "]";
 	}
 
 }

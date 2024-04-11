@@ -1,0 +1,24 @@
+<style media="screen">
+* {
+	color: #ffff;
+	font-family: 'Roboto', sans-serif;
+}
+
+body {
+	background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+		url("https://pbs.twimg.com/media/FiLqLNLXwAMdw3T?format=jpg&name=4096x4096");
+	background-color: #000;
+	background-position: center;
+	background-size: cover;
+}
+
+thead {
+	position: sticky;
+	top: 0px;
+	background-color: Grey;
+}
+
+.table-responsive {
+	max-height: 300px;
+}
+</style>

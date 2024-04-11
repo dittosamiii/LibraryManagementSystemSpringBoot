@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -56,7 +57,7 @@ public class fineControllerJpa {
 			return "redirect:login";
 		}
 		String username = (String) model.get("name");
-		fine fineBook = new fine(username, 0, 0, LocalDate.now(), LocalDate.now(), LocalDate.now(), 0);
+		fine fineBook = new fine(0, username, 0, 0, LocalDate.now(), LocalDate.now(), LocalDate.now(), 0);
 		model.put("fine", fineBook);
 
 		issueBooks issueBook = issueBookRepo.findById(sequence).get();
@@ -68,10 +69,17 @@ public class fineControllerJpa {
 	}
 
 	@RequestMapping(value = "/return", method = RequestMethod.POST)
-	public String processReturnPage(@RequestParam int sequence, @Valid fine book, ModelMap model, HttpSession session) {
+	public String processReturnPage(@RequestParam int sequence, @Valid fine book, BindingResult result, ModelMap model,
+			HttpSession session) {
 		if (session.getAttribute("loggedInUser") == null) {
 			return "redirect:login";
 		}
+		
+		if (result.hasErrors()) {
+			model.put("fine", book);
+			return "return";
+		}
+		
 		String username = (String) model.get("name");
 		book.setUsername(username);
 
@@ -79,7 +87,7 @@ public class fineControllerJpa {
 		book.setBookId(issueBook.getBookId());
 		book.setStudentId(issueBook.getStudentId());
 
-		if (book.getIssueDate().isBefore(book.getReturnDate())) {
+		if (!book.getReturnedDate().isBefore(book.getIssueDate())) {
 			// Return Book Logic which returns the book back to the library by increasing
 			// value of the available book
 			issueBooks issuedBook = issueBookRepo.findById(sequence).get();
@@ -89,7 +97,8 @@ public class fineControllerJpa {
 			myLibraryRepo.save(libraryBook);
 			issueBookRepo.delete(issuedBook);
 
-			if (book.getReturnedDate().isBefore(book.getReturnDate())) {
+			if (book.getReturnedDate().isBefore(book.getReturnDate())
+					|| book.getReturnDate().isEqual(book.getReturnedDate())) {
 				return "redirect:library";
 			} else {
 				LocalDate returnDate = book.getReturnDate();
@@ -101,8 +110,8 @@ public class fineControllerJpa {
 			}
 			return "redirect:fine";
 		} else {
-			model.put("errorMessage", "Invalid Return Date!");
-			return "issue-book";
+			model.put("errorMessage", "Invalid Returned Date!");
+			return "return";
 		}
 	}
 }

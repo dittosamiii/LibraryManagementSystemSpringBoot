@@ -25,8 +25,8 @@ body {
 }
 
 form {
-	height: 520px;
-	width: 400px;
+	height: 580px;
+	width: 450px;
 	background-color: rgba(255, 255, 255, 0.09);
 	position: absolute;
 	transform: translate(-50%, -50%);
@@ -40,7 +40,7 @@ form {
 }
 
 form * {
-	font-family: 'Poppins', sans-serif;
+	font-family: 'Roborto', sans-serif;
 	color: black;
 	letter-spacing: 0.5px;
 	outline: none;
@@ -78,8 +78,8 @@ pre {
 	display: block;
 	background-color: rgba(255, 255, 255, 0.07);
 	padding: 0 10px;
-	margin-top: 8px;
-	font-size: 13px;
+	margin-top: 4px;
+	font-size: 14px;
 	font-weight: 150;
 }
 

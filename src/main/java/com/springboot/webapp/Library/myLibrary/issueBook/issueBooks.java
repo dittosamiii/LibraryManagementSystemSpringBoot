@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 public class issueBooks {
@@ -13,8 +15,10 @@ public class issueBooks {
 	@Id
 	@GeneratedValue
 	private int sequence;
+	@Min(value = 1, message = "Invalid Id")
 	private int studentId;
 	private String username;
+	@Pattern(regexp = "^[a-zA-Z\\s]*$", message = "Invalid Name")
 	private String studentName;
 	private String bookName;
 	private LocalDate issueDate;

@@ -2,16 +2,21 @@ package com.springboot.webapp.Library.myLibrary;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Pattern;
 
 @Entity(name = "library")
 public class myLibrary {
 
 	@Id
+	@Min(value = 1)
 	private int bookId;
-	private String username;
-	private String bookName;
-	private String authorName;
+	@Min(value = 1, message="Invalid Amount")
 	private int totalBooks;
+	private String bookName;
+	@Pattern(regexp = "^[a-zA-Z\\s]*$", message="Invalid Name")
+	private String authorName;
+	private String username;
 
 	public myLibrary() {
 

@@ -9,7 +9,7 @@
 	<h3>ADMIN PANEL</h3>
 
 	<label for="username">Username</label> <input type="text"
-		placeholder="Email or Phone" name="username"> <label
+		placeholder="Username" name="username"> <label
 		for="password">Password</label> <input type="password"
 		placeholder="Password" id="password" name="password"> <input
 		type="submit" value="LogIn" class="inputClass">

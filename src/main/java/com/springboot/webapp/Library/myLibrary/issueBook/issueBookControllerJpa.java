@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -62,15 +63,21 @@ public class issueBookControllerJpa {
 	@RequestMapping(value = "/issue-book", method = RequestMethod.POST)
 	public String returnissueBooks(@RequestParam int bookId, @Valid issueBooks book, BindingResult result,
 			ModelMap model, HttpSession session) {
-		model.put("issueBook", book); // Always add 'issueBook' to the model
-
+		model.put("issueBook", book);
 		if (session.getAttribute("loggedInUser") == null) {
 			return "redirect:login";
 		}
 		if (result.hasErrors()) {
-			model.put("issueBook", book);
+			for (FieldError error : result.getFieldErrors()) {
+				if (error.getField().equals("studentId")) {
+					model.put("error", error.getDefaultMessage());
+				} else if (error.getField().equals("studentName")) {
+					model.put("errorStud", error.getDefaultMessage());
+				}
+			}
 			return "issue-book";
 		}
+
 		String username = (String) model.get("name");
 		book.setUsername(username);
 
@@ -79,24 +86,30 @@ public class issueBookControllerJpa {
 			model.put("errorMessage", "Book not available");
 			return "issue-book";
 		}
-
+		LocalDate today = LocalDate.now();
 		// Return Date Logic where return date is not before the issue date
 		// Check if issueDate is before returnDate
-		if (book.getIssueDate().isBefore(book.getReturnDate())) {
+		if (book.getIssueDate().isEqual(today)) {
+			if (book.getIssueDate().isBefore(book.getReturnDate())) {
 
-			// Book Issue Logic for decreasing the quantity of the book
-			myLibrary libraryBook = myLibraryRepo.findById(bookId).get();
-			libraryBook.setTotalBooks(libraryBook.getTotalBooks() - 1);
-			myLibraryRepo.save(libraryBook);
-			String name = libraryBook.getBookName();
-			book.setBookName(name);
+				// Book Issue Logic for decreasing the quantity of the book
+				myLibrary libraryBook = myLibraryRepo.findById(bookId).get();
+				libraryBook.setTotalBooks(libraryBook.getTotalBooks() - 1);
+				myLibraryRepo.save(libraryBook);
+				String name = libraryBook.getBookName();
+				book.setBookName(name);
 
-			issueBookRepo.save(book);
-			return "redirect:issue";
+				issueBookRepo.save(book);
+				return "redirect:issue";
+			} else {
+				model.put("errorMessage", "Invalid Return Date!");
+				return "issue-book";
+			}
 		} else {
-			model.put("errorMessage", "Invalid Return Date!");
+			model.put("errorMessage1", "Invalid Issue Date!");
 			return "issue-book";
 		}
+
 	}
 
 	@RequestMapping(value = "/update-issue-book", method = RequestMethod.GET)
@@ -112,25 +125,36 @@ public class issueBookControllerJpa {
 
 	@RequestMapping(value = "/update-issue-book", method = RequestMethod.POST)
 	public String UpdateBooks(@Valid issueBooks book, BindingResult result, ModelMap model, HttpSession session) {
-		model.put("issueBook", book); // Always add 'issueBook' to the model
-
+		model.put("issueBook", book);
 		if (session.getAttribute("loggedInUser") == null) {
 			return "redirect:login";
 		}
-
+		
 		if (result.hasErrors()) {
+			for (FieldError error : result.getFieldErrors()) {
+				if (error.getField().equals("studentId")) {
+					model.put("error", error.getDefaultMessage());
+				} else if (error.getField().equals("studentName")) {
+					model.put("errorStud", error.getDefaultMessage());
+				}
+			}
 			return "issue-book";
 		}
 
 		String username = (String) model.get("name");
 		book.setUsername(username);
-
+		LocalDate today = LocalDate.now();
 		// Check if issueDate is before returnDate
-		if (book.getIssueDate().isBefore(book.getReturnDate())) {
-			issueBookRepo.save(book);
-			return "redirect:issue";
+		if (book.getIssueDate().isEqual(today)) {
+			if (book.getIssueDate().isBefore(book.getReturnDate())) {
+				issueBookRepo.save(book);
+				return "redirect:issue";
+			} else {
+				model.put("errorMessage", "Invalid Return Date!");
+				return "issue-book";
+			}
 		} else {
-			model.put("errorMessage", "Invalid Return Date!");
+			model.put("errorMessage1", "Invalid Issue Date!");
 			return "issue-book";
 		}
 	}

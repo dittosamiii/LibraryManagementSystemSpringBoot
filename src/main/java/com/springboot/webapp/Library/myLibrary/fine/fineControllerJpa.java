@@ -74,12 +74,12 @@ public class fineControllerJpa {
 		if (session.getAttribute("loggedInUser") == null) {
 			return "redirect:login";
 		}
-		
+
 		if (result.hasErrors()) {
 			model.put("fine", book);
 			return "return";
 		}
-		
+
 		String username = (String) model.get("name");
 		book.setUsername(username);
 

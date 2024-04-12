@@ -7,12 +7,15 @@
 	<form:form method="post" modelAttribute="issueBook">
 		<h2>Enter Book to issue:</h2>
 		<form:input type="hidden" path="bookId" required="required" />
-			Student Id: <form:input type="text" path="studentId"
+			Student Id: <form:input type="number" path="studentId"
 			required="required" />
+		<pre>${error}</pre>
 			 Student Name: <form:input type="text" path="studentName"
 			required="required" />
+		<pre>${errorStud}</pre>
 			Issue Date: <form:input type="date" path="issueDate"
 			required="required" />
+		<pre>${errorMessage1}</pre>
 			Return Date: <form:input type="date" path="returnDate"
 			required="required" />
 		<pre>${errorMessage}</pre>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,10 +54,18 @@ public class myLibraryControllerJpa {
 
 	@RequestMapping(value = "/add-book", method = RequestMethod.POST)
 	public String addNewBooks(@Valid myLibrary library, BindingResult result, ModelMap model, HttpSession session) {
+		model.put("library", library);
 		if (session.getAttribute("loggedInUser") == null) {
 			return "redirect:login";
 		}
 		if (result.hasErrors()) {
+			for (FieldError error : result.getFieldErrors()) {
+				if (error.getField().equals("totalBooks")) {
+					model.put("errorTotal", error.getDefaultMessage());
+				} else if (error.getField().equals("authorName")) {
+					model.put("errorAuth", error.getDefaultMessage());
+				}
+			}
 			return "add-book";
 		}
 		String username = (String) model.get("name");
@@ -64,7 +73,6 @@ public class myLibraryControllerJpa {
 		mylibraryrepo.save(library);
 
 		return "redirect:library";
-
 	}
 
 	@RequestMapping("delete-book")
@@ -92,13 +100,22 @@ public class myLibraryControllerJpa {
 
 	@RequestMapping(value = "/update-book", method = RequestMethod.POST)
 	public String UpdateBooks(@Valid myLibrary library, BindingResult result, ModelMap model, HttpSession session) {
+		model.put("library", library);
 		if (session.getAttribute("loggedInUser") == null) {
 			return "redirect:login";
 		}
 
 		if (result.hasErrors()) {
+			for (FieldError error : result.getFieldErrors()) {
+				if (error.getField().equals("totalBooks")) {
+					model.put("errorTotal", error.getDefaultMessage());
+				} else if (error.getField().equals("authorName")) {
+					model.put("errorAuth", error.getDefaultMessage());
+				}
+			}
 			return "update-add-book";
 		}
+
 		String username = (String) model.get("name");
 		library.setUsername(username);
 		mylibraryrepo.save(library);

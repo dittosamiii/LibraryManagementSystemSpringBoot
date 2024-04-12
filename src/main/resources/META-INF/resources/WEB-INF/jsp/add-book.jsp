@@ -8,12 +8,16 @@
 <div class="container">
 	<form:form method="post" modelAttribute="library">
 		<h2>Enter Book Details:</h2>
-			Book Id: <form:input type="text" path="bookId" required="required" />
+			Book Id: <form:input type="number" path="bookId" required="required"
+			min="1" />
 			Book Name: <form:input type="text" path="bookName"
 			required="required" />
 			Author Name: <form:input type="text" path="authorName"
 			required="required" />
-			Total: <form:input type="text" path="totalBooks" required="required" />
+			<pre>${errorAuth}</pre>
+			Total: <form:input type="number" path="totalBooks"
+			required="required" />
+			<pre>${errorTotal}</pre>
 		<br>
 		<input type="submit" class="btn btn-success" />
 	</form:form>

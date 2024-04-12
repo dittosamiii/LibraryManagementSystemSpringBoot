@@ -13,7 +13,10 @@
 			required="required" />
 			Author Name: <form:input type="text" path="authorName"
 			required="required" />
-			Total: <form:input type="text" path="totalBooks" required="required" />
+		<pre>${errorAuth}</pre>
+			Total: <form:input type="number" path="totalBooks"
+			required="required" />
+		<pre>${errorTotal}</pre>
 		<br>
 		<input type="submit" class="btn btn-success" />
 	</form:form>

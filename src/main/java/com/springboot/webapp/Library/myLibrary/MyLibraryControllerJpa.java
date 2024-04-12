@@ -1,6 +1,7 @@
 package com.springboot.webapp.Library.myLibrary;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -118,23 +119,13 @@ public class MyLibraryControllerJpa {
 	}
 
 	@RequestMapping("delete-book")
-	public String deleteBooks(@RequestParam int bookId, ModelMap model, HttpSession session) {
-	    if (session.getAttribute("loggedInUser") == null) {
-	        return "redirect:login";
-	    }
+	public String deleteBooks(@RequestParam int bookId, HttpSession session) {
+		if (session.getAttribute("loggedInUser") == null) {
+			return "redirect:login";
+		}
 
-	    java.util.Optional<IssueBooks> issuedbook = issuebookrepo.findById(bookId);
-	    if (!issuedbook.isPresent()) {
-	        // If the book is issued, add an error message to the model and redirect to the library page without deleting the book
-	        model.put("deleteError", "Book Already Issued");
-	        return "redirect:library";
-	    } else {
-	        // If the book is not issued, delete the book
-	        mylibraryrepo.deleteById(bookId);
-	    }
-	    return "redirect:library";
+		mylibraryrepo.deleteById(bookId);
+		return "redirect:library";
 	}
-
-
 
 }

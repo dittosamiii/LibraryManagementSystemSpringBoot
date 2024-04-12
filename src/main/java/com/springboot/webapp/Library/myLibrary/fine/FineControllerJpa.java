@@ -12,25 +12,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.springboot.webapp.Library.myLibrary.myLibrary;
-import com.springboot.webapp.Library.myLibrary.myLibraryRepository;
-import com.springboot.webapp.Library.myLibrary.issueBook.issueBookRepository;
-import com.springboot.webapp.Library.myLibrary.issueBook.issueBooks;
+import com.springboot.webapp.Library.myLibrary.MyLibrary;
+import com.springboot.webapp.Library.myLibrary.MyLibraryRepository;
+import com.springboot.webapp.Library.myLibrary.issueBook.IssueBookRepository;
+import com.springboot.webapp.Library.myLibrary.issueBook.IssueBooks;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
 @SessionAttributes("name")
-public class fineControllerJpa {
+public class FineControllerJpa {
 
-	private fineRepository fineRepo;
-	private issueBookRepository issueBookRepo;
-	private myLibraryRepository myLibraryRepo;
+	private FineRepository fineRepo;
+	private IssueBookRepository issueBookRepo;
+	private MyLibraryRepository myLibraryRepo;
 
 	// To inject we are using this constructor
-	public fineControllerJpa(fineRepository finerepo, issueBookRepository issuebookrepo,
-			myLibraryRepository mylibraryrepo) {
+	public FineControllerJpa(FineRepository finerepo, IssueBookRepository issuebookrepo,
+			MyLibraryRepository mylibraryrepo) {
 
 		super();
 		this.fineRepo = finerepo;
@@ -45,7 +45,7 @@ public class fineControllerJpa {
 			return "redirect:login";
 		}
 		String username = (String) model.get("name");
-		List<fine> fine = fineRepo.findByUsername(username);
+		List<Fine> fine = fineRepo.findByUsername(username);
 		model.addAttribute("fine", fine);
 		return "fine";
 
@@ -57,10 +57,10 @@ public class fineControllerJpa {
 			return "redirect:login";
 		}
 		String username = (String) model.get("name");
-		fine fineBook = new fine(0, username, 0, 0, LocalDate.now(), LocalDate.now(), LocalDate.now(), 0);
+		Fine fineBook = new Fine(0, username, 0, 0, LocalDate.now(), LocalDate.now(), LocalDate.now(), 0);
 		model.put("fine", fineBook);
 
-		issueBooks issueBook = issueBookRepo.findById(sequence).get();
+		IssueBooks issueBook = issueBookRepo.findById(sequence).get();
 		fineBook.setIssueDate(issueBook.getIssueDate());
 		fineBook.setReturnDate(issueBook.getReturnDate());
 		model.addAttribute("fine", fineBook);
@@ -69,7 +69,7 @@ public class fineControllerJpa {
 	}
 
 	@RequestMapping(value = "/return", method = RequestMethod.POST)
-	public String processReturnPage(@RequestParam int sequence, @Valid fine book, BindingResult result, ModelMap model,
+	public String processReturnPage(@RequestParam int sequence, @Valid Fine book, BindingResult result, ModelMap model,
 			HttpSession session) {
 		if (session.getAttribute("loggedInUser") == null) {
 			return "redirect:login";
@@ -83,15 +83,15 @@ public class fineControllerJpa {
 		String username = (String) model.get("name");
 		book.setUsername(username);
 
-		issueBooks issueBook = issueBookRepo.findById(sequence).get();
+		IssueBooks issueBook = issueBookRepo.findById(sequence).get();
 		book.setBookId(issueBook.getBookId());
 		book.setStudentId(issueBook.getStudentId());
 
 		if (!book.getReturnedDate().isBefore(book.getIssueDate())) {
 			// Return Book Logic which returns the book back to the library by increasing
 			// value of the available book
-			issueBooks issuedBook = issueBookRepo.findById(sequence).get();
-			myLibrary libraryBook = myLibraryRepo.findById(issuedBook.getBookId()).get();
+			IssueBooks issuedBook = issueBookRepo.findById(sequence).get();
+			MyLibrary libraryBook = myLibraryRepo.findById(issuedBook.getBookId()).get();
 			libraryBook.setTotalBooks(libraryBook.getTotalBooks() + 1);
 
 			myLibraryRepo.save(libraryBook);

@@ -13,21 +13,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.springboot.webapp.Library.myLibrary.myLibrary;
-import com.springboot.webapp.Library.myLibrary.myLibraryRepository;
+import com.springboot.webapp.Library.myLibrary.MyLibrary;
+import com.springboot.webapp.Library.myLibrary.MyLibraryRepository;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
 @SessionAttributes("name")
-public class issueBookControllerJpa {
+public class IssueBookControllerJpa {
 
-	private issueBookRepository issueBookRepo;
-	private myLibraryRepository myLibraryRepo;
+	private IssueBookRepository issueBookRepo;
+	private MyLibraryRepository myLibraryRepo;
 
 	// To inject we are using this constructor
-	public issueBookControllerJpa(issueBookRepository issueBookRepo, myLibraryRepository mylibraryrepo) {
+	public IssueBookControllerJpa(IssueBookRepository issueBookRepo, MyLibraryRepository mylibraryrepo) {
 
 		super();
 		this.issueBookRepo = issueBookRepo;
@@ -41,7 +41,7 @@ public class issueBookControllerJpa {
 			return "redirect:login";
 		}
 		String username = (String) model.get("name");
-		List<issueBooks> issueBooks = issueBookRepo.findByUsername(username);
+		List<IssueBooks> issueBooks = issueBookRepo.findByUsername(username);
 		model.addAttribute("issueBook", issueBooks);
 		return "issue";
 
@@ -54,14 +54,14 @@ public class issueBookControllerJpa {
 		}
 
 		String username = (String) model.get("name");
-		issueBooks book = new issueBooks(0, username, 0, 0, "", "", LocalDate.now(), LocalDate.now());
+		IssueBooks book = new IssueBooks(0, username, 0, 0, "", "", LocalDate.now(), LocalDate.now());
 		model.put("issueBook", book);
 		return "issue-book";
 
 	}
 
 	@RequestMapping(value = "/issue-book", method = RequestMethod.POST)
-	public String returnissueBooks(@RequestParam int bookId, @Valid issueBooks book, BindingResult result,
+	public String returnissueBooks(@RequestParam int bookId, @Valid IssueBooks book, BindingResult result,
 			ModelMap model, HttpSession session) {
 		model.put("issueBook", book);
 		if (session.getAttribute("loggedInUser") == null) {
@@ -81,7 +81,7 @@ public class issueBookControllerJpa {
 		String username = (String) model.get("name");
 		book.setUsername(username);
 
-		myLibrary currBook = myLibraryRepo.findById(bookId).get();
+		MyLibrary currBook = myLibraryRepo.findById(bookId).get();
 		if (currBook.getTotalBooks() == 0) {
 			model.put("errorMessage", "Book not available");
 			return "issue-book";
@@ -93,7 +93,7 @@ public class issueBookControllerJpa {
 			if (book.getIssueDate().isBefore(book.getReturnDate())) {
 
 				// Book Issue Logic for decreasing the quantity of the book
-				myLibrary libraryBook = myLibraryRepo.findById(bookId).get();
+				MyLibrary libraryBook = myLibraryRepo.findById(bookId).get();
 				libraryBook.setTotalBooks(libraryBook.getTotalBooks() - 1);
 				myLibraryRepo.save(libraryBook);
 				String name = libraryBook.getBookName();
@@ -117,14 +117,14 @@ public class issueBookControllerJpa {
 		if (session.getAttribute("loggedInUser") == null) {
 			return "redirect:login";
 		}
-		issueBooks book = issueBookRepo.findById(sequence).get();
+		IssueBooks book = issueBookRepo.findById(sequence).get();
 		model.addAttribute("issueBook", book);
 		return "issue-book";
 
 	}
 
 	@RequestMapping(value = "/update-issue-book", method = RequestMethod.POST)
-	public String UpdateBooks(@Valid issueBooks book, BindingResult result, ModelMap model, HttpSession session) {
+	public String UpdateBooks(@Valid IssueBooks book, BindingResult result, ModelMap model, HttpSession session) {
 		model.put("issueBook", book);
 		if (session.getAttribute("loggedInUser") == null) {
 			return "redirect:login";

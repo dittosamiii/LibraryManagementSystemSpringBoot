@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface fineRepository extends JpaRepository<fine, Integer> {
-	public List<fine> findByUsername(String username);
+public interface FineRepository extends JpaRepository<Fine, Integer> {
+	public List<Fine> findByUsername(String username);
 
 }

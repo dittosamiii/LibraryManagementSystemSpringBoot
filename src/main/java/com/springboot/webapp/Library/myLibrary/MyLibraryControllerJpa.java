@@ -11,20 +11,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.springboot.webapp.Library.myLibrary.issueBook.IssueBookRepository;
+import com.springboot.webapp.Library.myLibrary.issueBook.IssueBooks;
+
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
 @SessionAttributes("name")
-public class myLibraryControllerJpa {
+public class MyLibraryControllerJpa {
 
-	private myLibraryRepository mylibraryrepo;
+	private MyLibraryRepository mylibraryrepo;
+	private IssueBookRepository issuebookrepo;
 
 	// To inject we are using this constructor
-	public myLibraryControllerJpa(myLibraryRepository mylibraryrepo) {
+	public MyLibraryControllerJpa(MyLibraryRepository mylibraryrepo, IssueBookRepository issuebookrepo) {
 
 		super();
 		this.mylibraryrepo = mylibraryrepo;
+		this.issuebookrepo = issuebookrepo;
 
 	}
 
@@ -34,7 +39,7 @@ public class myLibraryControllerJpa {
 			return "redirect:login";
 		}
 		String username = (String) model.get("name");
-		List<myLibrary> library = mylibraryrepo.findByUsername(username);
+		List<MyLibrary> library = mylibraryrepo.findByUsername(username);
 		model.addAttribute("library", library);
 		return "library";
 
@@ -46,14 +51,14 @@ public class myLibraryControllerJpa {
 			return "redirect:login";
 		}
 		String username = (String) model.get("name");
-		myLibrary book = new myLibrary(username, 0, "", "", 0);
+		MyLibrary book = new MyLibrary(username, 0, "", "", 0);
 		model.put("library", book);
 		return "add-book";
 
 	}
 
 	@RequestMapping(value = "/add-book", method = RequestMethod.POST)
-	public String addNewBooks(@Valid myLibrary library, BindingResult result, ModelMap model, HttpSession session) {
+	public String addNewBooks(@Valid MyLibrary library, BindingResult result, ModelMap model, HttpSession session) {
 		model.put("library", library);
 		if (session.getAttribute("loggedInUser") == null) {
 			return "redirect:login";
@@ -75,31 +80,20 @@ public class myLibraryControllerJpa {
 		return "redirect:library";
 	}
 
-	@RequestMapping("delete-book")
-	public String deleteBooks(@RequestParam int bookId, HttpSession session) {
-		if (session.getAttribute("loggedInUser") == null) {
-			return "redirect:login";
-		}
-
-		mylibraryrepo.deleteById(bookId);
-		return "redirect:library";
-
-	}
-
 	@RequestMapping(value = "/update-book", method = RequestMethod.GET)
 	public String showToUpdateBooks(@RequestParam int bookId, ModelMap model, HttpSession session) {
 		if (session.getAttribute("loggedInUser") == null) {
 			return "redirect:login";
 		}
 
-		myLibrary book = mylibraryrepo.findById(bookId).get();
+		MyLibrary book = mylibraryrepo.findById(bookId).get();
 		model.addAttribute("library", book);
 		return "update-add-book";
 
 	}
 
 	@RequestMapping(value = "/update-book", method = RequestMethod.POST)
-	public String UpdateBooks(@Valid myLibrary library, BindingResult result, ModelMap model, HttpSession session) {
+	public String UpdateBooks(@Valid MyLibrary library, BindingResult result, ModelMap model, HttpSession session) {
 		model.put("library", library);
 		if (session.getAttribute("loggedInUser") == null) {
 			return "redirect:login";
@@ -122,5 +116,25 @@ public class myLibraryControllerJpa {
 		return "redirect:library";
 
 	}
+
+	@RequestMapping("delete-book")
+	public String deleteBooks(@RequestParam int bookId, ModelMap model, HttpSession session) {
+	    if (session.getAttribute("loggedInUser") == null) {
+	        return "redirect:login";
+	    }
+
+	    java.util.Optional<IssueBooks> issuedbook = issuebookrepo.findById(bookId);
+	    if (!issuedbook.isPresent()) {
+	        // If the book is issued, add an error message to the model and redirect to the library page without deleting the book
+	        model.put("deleteError", "Book Already Issued");
+	        return "redirect:library";
+	    } else {
+	        // If the book is not issued, delete the book
+	        mylibraryrepo.deleteById(bookId);
+	    }
+	    return "redirect:library";
+	}
+
+
 
 }

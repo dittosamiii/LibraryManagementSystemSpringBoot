@@ -6,23 +6,23 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Pattern;
 
 @Entity(name = "library")
-public class myLibrary {
+public class MyLibrary {
 
 	@Id
 	@Min(value = 1)
 	private int bookId;
-	@Min(value = 1, message="Invalid Amount")
+	@Min(value = 0, message="Invalid Amount")
 	private int totalBooks;
 	private String bookName;
 	@Pattern(regexp = "^[a-zA-Z\\s]*$", message="Invalid Name")
 	private String authorName;
 	private String username;
 
-	public myLibrary() {
+	public MyLibrary() {
 
 	}
 
-	public myLibrary(String username, int bookId, String bookName, String authorName, int totalBooks) {
+	public MyLibrary(String username, int bookId, String bookName, String authorName, int totalBooks) {
 		super();
 		this.username = username;
 		this.bookId = bookId;
@@ -61,7 +61,6 @@ public class myLibrary {
 
 	public void setUsername(String username) {
 		this.username = username;
-		;
 	}
 
 	public int getTotalBooks() {

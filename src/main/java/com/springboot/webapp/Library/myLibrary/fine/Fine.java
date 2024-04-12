@@ -7,7 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 @Entity
-public class fine {
+public class Fine {
 
 	@Id
 	@GeneratedValue
@@ -20,11 +20,11 @@ public class fine {
 	private int amount;
 	private String username;
 
-	public fine() {
+	public Fine() {
 
 	}
 
-	public fine(int sequence, String username, int bookId, int studentId, LocalDate issueDate, LocalDate returnDate,
+	public Fine(int sequence, String username, int bookId, int studentId, LocalDate issueDate, LocalDate returnDate,
 			LocalDate returnedDate, int amount) {
 		super();
 		this.sequence = sequence;

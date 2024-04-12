@@ -9,7 +9,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Pattern;
 
 @Entity
-public class issueBooks {
+public class IssueBooks {
 
 	private int bookId;
 	@Id
@@ -24,11 +24,11 @@ public class issueBooks {
 	private LocalDate issueDate;
 	private LocalDate returnDate;
 
-	public issueBooks() {
+	public IssueBooks() {
 
 	}
 
-	public issueBooks(int sequence, String username, int bookId, int studentId, String studentName, String bookName,
+	public IssueBooks(int sequence, String username, int bookId, int studentId, String studentName, String bookName,
 			LocalDate issueDate, LocalDate returnDate) {
 		super();
 		this.sequence = sequence;

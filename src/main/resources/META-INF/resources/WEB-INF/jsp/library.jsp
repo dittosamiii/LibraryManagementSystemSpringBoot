@@ -2,7 +2,7 @@
 <%@ include file="style/mainStyle.jspf"%>
 <%@ include file="common/navigation.jspf"%>
 
-<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="container">
 
 	<h1>WELCOME ${name}</h1>
@@ -39,6 +39,7 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		<pre>${deleteError}</pre>
 	</div>
 	<a href="add-book" class="btn btn-success">Add Book</a>
 </div>

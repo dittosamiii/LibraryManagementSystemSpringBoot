@@ -1,7 +1,6 @@
 package com.springboot.webapp.Library.myLibrary;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.springboot.webapp.Library.myLibrary.issueBook.IssueBookRepository;
-import com.springboot.webapp.Library.myLibrary.issueBook.IssueBooks;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -123,7 +121,7 @@ public class MyLibraryControllerJpa {
 		if (session.getAttribute("loggedInUser") == null) {
 			return "redirect:login";
 		}
-
+		
 		mylibraryrepo.deleteById(bookId);
 		return "redirect:library";
 	}

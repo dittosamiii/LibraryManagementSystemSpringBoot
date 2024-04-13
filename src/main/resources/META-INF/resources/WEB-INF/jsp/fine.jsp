@@ -15,8 +15,8 @@
 					<th>BOOK ID</th>
 					<th>STUDENT ID</th>
 					<th>ISSUE DATE</th>
+					<th>DUE DATE</th>
 					<th>RETURN DATE</th>
-					<th>RETURNED DATE</th>
 					<th>AMOUNT</th>
 				</tr>
 			</thead>

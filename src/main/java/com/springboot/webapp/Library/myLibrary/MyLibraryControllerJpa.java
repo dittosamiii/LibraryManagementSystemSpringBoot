@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.springboot.webapp.Library.myLibrary.issueBook.IssueBookRepository;
-
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
@@ -21,14 +19,12 @@ import jakarta.validation.Valid;
 public class MyLibraryControllerJpa {
 
 	private MyLibraryRepository mylibraryrepo;
-	private IssueBookRepository issuebookrepo;
 
 	// To inject we are using this constructor
-	public MyLibraryControllerJpa(MyLibraryRepository mylibraryrepo, IssueBookRepository issuebookrepo) {
+	public MyLibraryControllerJpa(MyLibraryRepository mylibraryrepo) {
 
 		super();
 		this.mylibraryrepo = mylibraryrepo;
-		this.issuebookrepo = issuebookrepo;
 
 	}
 
@@ -121,7 +117,7 @@ public class MyLibraryControllerJpa {
 		if (session.getAttribute("loggedInUser") == null) {
 			return "redirect:login";
 		}
-		
+
 		mylibraryrepo.deleteById(bookId);
 		return "redirect:library";
 	}

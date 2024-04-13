@@ -110,7 +110,7 @@ public class FineControllerJpa {
 			}
 			return "redirect:fine";
 		} else {
-			model.put("errorMessage", "Invalid Returned Date!");
+			model.put("errorMessage", "Invalid Return Date!");
 			return "return";
 		}
 	}

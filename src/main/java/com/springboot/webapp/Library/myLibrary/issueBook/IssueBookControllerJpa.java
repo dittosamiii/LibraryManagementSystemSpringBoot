@@ -8,11 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-
 import com.springboot.webapp.Library.myLibrary.MyLibrary;
 import com.springboot.webapp.Library.myLibrary.MyLibraryRepository;
 
@@ -35,7 +34,8 @@ public class IssueBookControllerJpa {
 
 	}
 
-	@RequestMapping("/issue")
+	@GetMapping("/issue")
+	@PostMapping("/issue")
 	public String issueBooksPage(ModelMap model, HttpSession session) {
 		if (session.getAttribute("loggedInUser") == null) {
 			return "redirect:login";
@@ -47,7 +47,7 @@ public class IssueBookControllerJpa {
 
 	}
 
-	@RequestMapping(value = "/issue-book", method = RequestMethod.GET)
+	@GetMapping("/issue-book")
 	public String issuingBooks(ModelMap model, HttpSession session) {
 		if (session.getAttribute("loggedInUser") == null) {
 			return "redirect:login";
@@ -60,7 +60,7 @@ public class IssueBookControllerJpa {
 
 	}
 
-	@RequestMapping(value = "/issue-book", method = RequestMethod.POST)
+	@PostMapping("/issue-book")
 	public String returnissueBooks(@RequestParam int bookId, @Valid IssueBooks book, BindingResult result,
 			ModelMap model, HttpSession session) {
 		model.put("issueBook", book);
@@ -112,7 +112,7 @@ public class IssueBookControllerJpa {
 
 	}
 
-	@RequestMapping(value = "/update-issue-book", method = RequestMethod.GET)
+	@GetMapping("/update-issue-book")
 	public String showToUpdateBooks(@RequestParam int sequence, HttpSession session, ModelMap model) {
 		if (session.getAttribute("loggedInUser") == null) {
 			return "redirect:login";
@@ -123,7 +123,7 @@ public class IssueBookControllerJpa {
 
 	}
 
-	@RequestMapping(value = "/update-issue-book", method = RequestMethod.POST)
+	@PostMapping("/update-issue-book")
 	public String UpdateBooks(@Valid IssueBooks book, BindingResult result, ModelMap model, HttpSession session) {
 		model.put("issueBook", book);
 		if (session.getAttribute("loggedInUser") == null) {

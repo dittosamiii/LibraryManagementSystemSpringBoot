@@ -13,9 +13,9 @@
 		<!-- Displayed fields for issue date, return date, and returned date -->
         Issue Date: <form:input type="date" path="issueDate"
 			required="required" disabled="disabled" />
-        Return Date: <form:input type="date" path="returnDate"
+        Due Date: <form:input type="date" path="returnDate"
 			required="required" disabled="disabled" />
-        Returned Date: <form:input type="date" path="returnedDate"
+        Return Date: <form:input type="date" path="returnedDate"
 			required="required" />
 
 		<pre>${errorMessage}</pre>

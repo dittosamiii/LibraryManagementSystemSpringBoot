@@ -1,4 +1,4 @@
-package com.springboot.webapp.Library.myLibrary.issueBook;
+package com.springboot.webapp.Library.controller;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import com.springboot.webapp.Library.myLibrary.MyLibrary;
-import com.springboot.webapp.Library.myLibrary.MyLibraryRepository;
+
+import com.springboot.webapp.Library.entity.IssueBooks;
+import com.springboot.webapp.Library.entity.MyLibrary;
+import com.springboot.webapp.Library.repository.IssueBookRepository;
+import com.springboot.webapp.Library.repository.MyLibraryRepository;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;

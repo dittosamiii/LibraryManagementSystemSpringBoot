@@ -1,4 +1,4 @@
-package com.springboot.webapp.Library.myLibrary.fine;
+package com.springboot.webapp.Library.entity;
 
 import java.time.LocalDate;
 

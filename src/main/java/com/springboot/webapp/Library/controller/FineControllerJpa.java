@@ -1,4 +1,4 @@
-package com.springboot.webapp.Library.myLibrary.fine;
+package com.springboot.webapp.Library.controller;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.springboot.webapp.Library.myLibrary.MyLibrary;
-import com.springboot.webapp.Library.myLibrary.MyLibraryRepository;
-import com.springboot.webapp.Library.myLibrary.issueBook.IssueBookRepository;
-import com.springboot.webapp.Library.myLibrary.issueBook.IssueBooks;
+import com.springboot.webapp.Library.entity.Fine;
+import com.springboot.webapp.Library.entity.IssueBooks;
+import com.springboot.webapp.Library.entity.MyLibrary;
+import com.springboot.webapp.Library.repository.FineRepository;
+import com.springboot.webapp.Library.repository.IssueBookRepository;
+import com.springboot.webapp.Library.repository.MyLibraryRepository;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;

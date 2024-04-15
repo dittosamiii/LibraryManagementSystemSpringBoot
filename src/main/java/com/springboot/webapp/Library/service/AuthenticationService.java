@@ -1,4 +1,4 @@
-package com.springboot.webapp.Library.myLibrary.login.LoginController;
+package com.springboot.webapp.Library.service;
 
 import org.springframework.stereotype.Service;
 

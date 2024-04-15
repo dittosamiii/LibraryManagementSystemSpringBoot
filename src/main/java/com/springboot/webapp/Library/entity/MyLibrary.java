@@ -1,4 +1,4 @@
-package com.springboot.webapp.Library.myLibrary;
+package com.springboot.webapp.Library.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

@@ -1,4 +1,4 @@
-package com.springboot.webapp.Library.myLibrary;
+package com.springboot.webapp.Library.controller;
 
 import java.util.List;
 
@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+
+import com.springboot.webapp.Library.entity.MyLibrary;
+import com.springboot.webapp.Library.repository.MyLibraryRepository;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;

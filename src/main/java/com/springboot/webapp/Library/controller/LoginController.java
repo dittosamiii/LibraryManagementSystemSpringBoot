@@ -3,8 +3,8 @@ package com.springboot.webapp.Library.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -23,13 +23,13 @@ public class LoginController {
 		this.authenticationService = authenticationService;
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@GetMapping("/login")
 	public String getLoginPage(ModelMap model) {
 		model.put("name", "admin");
 		return "login";
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@PostMapping("/login")
 	public String authenticateLoginPage(@RequestParam String username, @RequestParam String password,
 			HttpSession session, ModelMap model) {
 		if (authenticationService.authenticate(username, password)) {
@@ -40,7 +40,7 @@ public class LoginController {
 		return "login";
 	}
 
-	@RequestMapping("/welcome")
+	@GetMapping("/welcome")
 	public String welcomePage(HttpSession session) {
 		if (session.getAttribute("loggedInUser") == null) {
 			return "redirect:login";

@@ -1,6 +1,6 @@
 <%@ include file="common/header.jspf"%>
-<%@ include file="style/mainStyle.jspf"%>
 <%@ include file="common/navigation.jspf"%>
+<%@ include file="style/mainStyle.jspf"%>
 
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <div class="container">

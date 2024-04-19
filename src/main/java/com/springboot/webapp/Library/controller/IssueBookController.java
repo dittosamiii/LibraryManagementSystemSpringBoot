@@ -2,7 +2,6 @@ package com.springboot.webapp.Library.controller;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,13 +22,13 @@ import jakarta.validation.Valid;
 
 @Controller
 @SessionAttributes("name")
-public class IssueBookControllerJpa {
+public class IssueBookController {
 
 	private IssueBookRepository issueBookRepo;
 	private MyLibraryRepository myLibraryRepo;
 
 	// To inject we are using this constructor
-	public IssueBookControllerJpa(IssueBookRepository issueBookRepo, MyLibraryRepository mylibraryrepo) {
+	public IssueBookController(IssueBookRepository issueBookRepo, MyLibraryRepository mylibraryrepo) {
 
 		super();
 		this.issueBookRepo = issueBookRepo;
@@ -132,7 +131,7 @@ public class IssueBookControllerJpa {
 		if (session.getAttribute("loggedInUser") == null) {
 			return "redirect:login";
 		}
-		
+
 		if (result.hasErrors()) {
 			for (FieldError error : result.getFieldErrors()) {
 				if (error.getField().equals("studentId")) {

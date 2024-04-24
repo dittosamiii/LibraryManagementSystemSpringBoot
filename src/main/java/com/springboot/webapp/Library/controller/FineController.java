@@ -7,11 +7,10 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-
 import com.springboot.webapp.Library.entity.Fine;
 import com.springboot.webapp.Library.entity.IssueBooks;
 import com.springboot.webapp.Library.entity.MyLibrary;
@@ -24,14 +23,14 @@ import jakarta.validation.Valid;
 
 @Controller
 @SessionAttributes("name")
-public class FineControllerJpa {
+public class FineController {
 
 	private FineRepository fineRepo;
 	private IssueBookRepository issueBookRepo;
 	private MyLibraryRepository myLibraryRepo;
 
 	// To inject we are using this constructor
-	public FineControllerJpa(FineRepository finerepo, IssueBookRepository issuebookrepo,
+	public FineController(FineRepository finerepo, IssueBookRepository issuebookrepo,
 			MyLibraryRepository mylibraryrepo) {
 
 		super();
@@ -41,7 +40,7 @@ public class FineControllerJpa {
 
 	}
 
-	@RequestMapping("/fine")
+	@GetMapping("/fine")
 	public String listAllBooks(ModelMap model, HttpSession session) {
 		if (session.getAttribute("loggedInUser") == null) {
 			return "redirect:login";
@@ -53,7 +52,7 @@ public class FineControllerJpa {
 
 	}
 
-	@RequestMapping(value = "/return", method = RequestMethod.GET)
+	@GetMapping("/return")
 	public String showReturnPage(@RequestParam int sequence, ModelMap model, HttpSession session) {
 		if (session.getAttribute("loggedInUser") == null) {
 			return "redirect:login";
@@ -70,7 +69,7 @@ public class FineControllerJpa {
 
 	}
 
-	@RequestMapping(value = "/return", method = RequestMethod.POST)
+	@PostMapping("/return")
 	public String processReturnPage(@RequestParam int sequence, @Valid Fine book, BindingResult result, ModelMap model,
 			HttpSession session) {
 		if (session.getAttribute("loggedInUser") == null) {

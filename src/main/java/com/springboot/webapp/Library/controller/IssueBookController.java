@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -23,13 +24,13 @@ import jakarta.validation.Valid;
 
 @Controller
 @SessionAttributes("name")
-public class IssueBookControllerJpa {
+public class IssueBookController {
 
 	private IssueBookRepository issueBookRepo;
 	private MyLibraryRepository myLibraryRepo;
 
 	// To inject we are using this constructor
-	public IssueBookControllerJpa(IssueBookRepository issueBookRepo, MyLibraryRepository mylibraryrepo) {
+	public IssueBookController(IssueBookRepository issueBookRepo, MyLibraryRepository mylibraryrepo) {
 
 		super();
 		this.issueBookRepo = issueBookRepo;
@@ -38,7 +39,6 @@ public class IssueBookControllerJpa {
 	}
 
 	@GetMapping("/issue")
-	@PostMapping("/issue")
 	public String issueBooksPage(ModelMap model, HttpSession session) {
 		if (session.getAttribute("loggedInUser") == null) {
 			return "redirect:login";
@@ -132,7 +132,7 @@ public class IssueBookControllerJpa {
 		if (session.getAttribute("loggedInUser") == null) {
 			return "redirect:login";
 		}
-		
+
 		if (result.hasErrors()) {
 			for (FieldError error : result.getFieldErrors()) {
 				if (error.getField().equals("studentId")) {

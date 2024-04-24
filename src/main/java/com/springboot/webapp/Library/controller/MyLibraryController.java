@@ -6,11 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
-
+import org.springframework.web.bind.annotation.*;
 import com.springboot.webapp.Library.entity.MyLibrary;
 import com.springboot.webapp.Library.repository.MyLibraryRepository;
 
@@ -19,19 +15,19 @@ import jakarta.validation.Valid;
 
 @Controller
 @SessionAttributes("name")
-public class MyLibraryControllerJpa {
+public class MyLibraryController {
 
 	private MyLibraryRepository mylibraryrepo;
 
 	// To inject we are using this constructor
-	public MyLibraryControllerJpa(MyLibraryRepository mylibraryrepo) {
+	public MyLibraryController(MyLibraryRepository mylibraryrepo) {
 
 		super();
 		this.mylibraryrepo = mylibraryrepo;
 
 	}
 
-	@RequestMapping("/library")
+	@GetMapping("/library")
 	public String listAllBooks(ModelMap model, HttpSession session) {
 		if (session.getAttribute("loggedInUser") == null) {
 			return "redirect:login";
@@ -43,7 +39,7 @@ public class MyLibraryControllerJpa {
 
 	}
 
-	@RequestMapping(value = "/add-book", method = RequestMethod.GET)
+	@GetMapping("/add-book")
 	public String showNewBooks(ModelMap model, HttpSession session) {
 		if (session.getAttribute("loggedInUser") == null) {
 			return "redirect:login";
@@ -55,7 +51,7 @@ public class MyLibraryControllerJpa {
 
 	}
 
-	@RequestMapping(value = "/add-book", method = RequestMethod.POST)
+	@PostMapping("/add-book")
 	public String addNewBooks(@Valid MyLibrary library, BindingResult result, ModelMap model, HttpSession session) {
 		model.put("library", library);
 		if (session.getAttribute("loggedInUser") == null) {
@@ -78,7 +74,7 @@ public class MyLibraryControllerJpa {
 		return "redirect:library";
 	}
 
-	@RequestMapping(value = "/update-book", method = RequestMethod.GET)
+	@GetMapping("/update-book")
 	public String showToUpdateBooks(@RequestParam int bookId, ModelMap model, HttpSession session) {
 		if (session.getAttribute("loggedInUser") == null) {
 			return "redirect:login";
@@ -90,7 +86,7 @@ public class MyLibraryControllerJpa {
 
 	}
 
-	@RequestMapping(value = "/update-book", method = RequestMethod.POST)
+	@PostMapping("/update-book")
 	public String UpdateBooks(@Valid MyLibrary library, BindingResult result, ModelMap model, HttpSession session) {
 		model.put("library", library);
 		if (session.getAttribute("loggedInUser") == null) {
@@ -115,7 +111,7 @@ public class MyLibraryControllerJpa {
 
 	}
 
-	@RequestMapping("delete-book")
+	@GetMapping("delete-book")
 	public String deleteBooks(@RequestParam int bookId, HttpSession session) {
 		if (session.getAttribute("loggedInUser") == null) {
 			return "redirect:login";

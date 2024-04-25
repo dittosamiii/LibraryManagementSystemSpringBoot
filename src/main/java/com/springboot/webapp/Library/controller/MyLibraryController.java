@@ -51,7 +51,7 @@ public class MyLibraryController {
 		String username = (String) model.get("name");
 		MyLibrary book = new MyLibrary(username, 0, "", "", 0);
 		model.put("library", book);
-		return "add-book";
+		return "addbook";
 
 	}
 
@@ -69,7 +69,7 @@ public class MyLibraryController {
 					model.put("errorAuth", error.getDefaultMessage());
 				}
 			}
-			return "add-book";
+			return "addbook";
 		}
 		String username = (String) model.get("name");
 		library.setUsername(username);
@@ -86,7 +86,7 @@ public class MyLibraryController {
 
 		MyLibrary book = mylibraryrepo.findById(bookId).get();
 		model.addAttribute("library", book);
-		return "update-add-book";
+		return "updatelibrarybook";
 
 	}
 
@@ -105,7 +105,7 @@ public class MyLibraryController {
 					model.put("errorAuth", error.getDefaultMessage());
 				}
 			}
-			return "update-add-book";
+			return "updatelibrarybook";
 		}
 
 		String username = (String) model.get("name");

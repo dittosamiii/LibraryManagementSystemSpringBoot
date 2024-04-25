@@ -33,6 +33,8 @@
 							class="btn btn-success">ISSUE</a></td>
 						<td><a href="update-book?bookId=${lib.bookId}"
 							class="btn btn-light">UPDATE</a></td>
+						<td><a href="delete-book?bookId=${lib.bookId}"
+							class="btn btn-Danger">DELETE</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>

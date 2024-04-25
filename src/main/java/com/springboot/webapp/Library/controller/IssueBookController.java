@@ -58,7 +58,7 @@ public class IssueBookController {
 		String username = (String) model.get("name");
 		IssueBooks book = new IssueBooks(0, username, 0, 0, "", "", LocalDate.now(), LocalDate.now());
 		model.put("issueBook", book);
-		return "issue-book";
+		return "issuebook";
 
 	}
 
@@ -77,7 +77,7 @@ public class IssueBookController {
 					model.put("errorStud", error.getDefaultMessage());
 				}
 			}
-			return "issue-book";
+			return "issuebook";
 		}
 
 		String username = (String) model.get("name");
@@ -86,7 +86,7 @@ public class IssueBookController {
 		MyLibrary currBook = myLibraryRepo.findById(bookId).get();
 		if (currBook.getTotalBooks() == 0) {
 			model.put("errorMessage", "Book not available");
-			return "issue-book";
+			return "issuebook";
 		}
 		LocalDate today = LocalDate.now();
 		// Return Date Logic where return date is not before the issue date
@@ -105,11 +105,11 @@ public class IssueBookController {
 				return "redirect:issue";
 			} else {
 				model.put("errorMessage", "Invalid Return Date!");
-				return "issue-book";
+				return "issuebook";
 			}
 		} else {
 			model.put("errorMessage1", "Invalid Issue Date!");
-			return "issue-book";
+			return "issuebook";
 		}
 
 	}
@@ -121,7 +121,7 @@ public class IssueBookController {
 		}
 		IssueBooks book = issueBookRepo.findById(sequence).get();
 		model.addAttribute("issueBook", book);
-		return "issue-book";
+		return "issuebook";
 
 	}
 
@@ -140,7 +140,7 @@ public class IssueBookController {
 					model.put("errorStud", error.getDefaultMessage());
 				}
 			}
-			return "issue-book";
+			return "issuebook";
 		}
 
 		String username = (String) model.get("name");
@@ -157,7 +157,7 @@ public class IssueBookController {
 			}
 		} else {
 			model.put("errorMessage1", "Invalid Issue Date!");
-			return "issue-book";
+			return "issuebook";
 		}
 	}
 

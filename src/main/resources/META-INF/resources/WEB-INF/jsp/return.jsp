@@ -1,7 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ include file="style/style.jspf"%>
-<%@ include file="common/navigation.jspf"%>
 <%@ include file="common/header.jspf"%>
+<%@ include file="common/navigation.jspf"%>
+<%@ include file="style/style.jspf"%>
 
 <div class="container">
 	<form:form method="post" modelAttribute="fine">

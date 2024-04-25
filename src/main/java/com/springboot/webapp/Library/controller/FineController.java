@@ -3,6 +3,7 @@ package com.springboot.webapp.Library.controller;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+
 import com.springboot.webapp.Library.entity.Fine;
 import com.springboot.webapp.Library.entity.IssueBooks;
 import com.springboot.webapp.Library.entity.MyLibrary;
@@ -92,10 +94,16 @@ public class FineController {
 			// Return Book Logic which returns the book back to the library by increasing
 			// value of the available book
 			IssueBooks issuedBook = issueBookRepo.findById(sequence).get();
-			MyLibrary libraryBook = myLibraryRepo.findById(issuedBook.getBookId()).get();
-			libraryBook.setTotalBooks(libraryBook.getTotalBooks() + 1);
 
-			myLibraryRepo.save(libraryBook);
+			Optional<MyLibrary> optionalBook = myLibraryRepo.findById(issuedBook.getBookId());
+
+			if (optionalBook.isPresent()) {
+
+				MyLibrary libraryBook = myLibraryRepo.findById(issuedBook.getBookId()).get();
+				libraryBook.setTotalBooks(libraryBook.getTotalBooks() + 1);
+
+				myLibraryRepo.save(libraryBook);
+			}
 			issueBookRepo.delete(issuedBook);
 
 			if (book.getReturnedDate().isBefore(book.getReturnDate())

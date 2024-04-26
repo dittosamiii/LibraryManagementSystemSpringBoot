@@ -1,6 +1,7 @@
 package com.springboot.webapp.Library.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -73,6 +74,11 @@ public class MyLibraryController {
 		}
 		String username = (String) model.get("name");
 		library.setUsername(username);
+		Optional<MyLibrary> book = mylibraryrepo.findById(library.getBookId());
+		if(book.isPresent()) {
+			model.put("errorBook", "Book Already Present");
+			return "addbook";
+		}
 		mylibraryrepo.save(library);
 
 		return "redirect:library";

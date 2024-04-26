@@ -98,12 +98,11 @@ public class FineController {
 			Optional<MyLibrary> optionalBook = myLibraryRepo.findById(issuedBook.getBookId());
 
 			if (optionalBook.isPresent()) {
-
 				MyLibrary libraryBook = myLibraryRepo.findById(issuedBook.getBookId()).get();
 				libraryBook.setTotalBooks(libraryBook.getTotalBooks() + 1);
-
 				myLibraryRepo.save(libraryBook);
 			}
+			
 			issueBookRepo.delete(issuedBook);
 
 			if (book.getReturnedDate().isBefore(book.getReturnDate())

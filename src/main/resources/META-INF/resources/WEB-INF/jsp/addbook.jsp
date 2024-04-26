@@ -20,6 +20,7 @@
 			<pre>${errorTotal}</pre>
 		<br>
 		<input type="submit" class="btn btn-success" />
+		<pre>${errorBook}</pre>
 	</form:form>
 </div>
 <%@ include file="common/footer.jspf"%>

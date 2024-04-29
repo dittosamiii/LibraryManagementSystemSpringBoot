@@ -83,11 +83,6 @@ public class IssueBookController {
 		String username = (String) model.get("name");
 		book.setUsername(username);
 
-		Optional<MyLibrary> currbook = myLibraryRepo.findById(bookId);
-		if (currbook.isPresent()) {
-			model.put("errorButton", "Book Not Found");
-			return "issuebook";
-		}
 		
 		MyLibrary libraryBook = myLibraryRepo.findById(bookId).get();
 		if (libraryBook.getTotalBooks() == 0) {
@@ -102,6 +97,11 @@ public class IssueBookController {
 
 				// Book Issue Logic for decreasing the quantity of the book
 				libraryBook.setTotalBooks(libraryBook.getTotalBooks() - 1);
+				Optional<MyLibrary> currbook = myLibraryRepo.findById(bookId);
+				if (currbook.isPresent()) {
+					model.put("errorMessage", "Book Not Found");
+					return "issuebook";
+				}
 				myLibraryRepo.save(libraryBook);
 				String name = libraryBook.getBookName();
 				book.setBookName(name);

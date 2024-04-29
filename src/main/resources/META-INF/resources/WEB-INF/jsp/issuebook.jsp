@@ -22,7 +22,6 @@
 		<form:input type="hidden" path="bookName" required="required" />
 		<br>
 		<input type="submit" class="btn btn-success" />
-		<pre>${errorButton}</pre>
 	</form:form>
 </div>
 <%@ include file="common/footer.jspf"%>

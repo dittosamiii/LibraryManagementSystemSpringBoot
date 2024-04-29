@@ -2,6 +2,7 @@ package com.springboot.webapp.Library.controller;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -82,8 +83,14 @@ public class IssueBookController {
 		String username = (String) model.get("name");
 		book.setUsername(username);
 
-		MyLibrary currBook = myLibraryRepo.findById(bookId).get();
-		if (currBook.getTotalBooks() == 0) {
+		Optional<MyLibrary> currbook = myLibraryRepo.findById(bookId);
+		if (currbook.isPresent()) {
+			model.put("errorButton", "Book Not Found");
+			return "issuebook";
+		}
+		
+		MyLibrary libraryBook = myLibraryRepo.findById(bookId).get();
+		if (libraryBook.getTotalBooks() == 0) {
 			model.put("errorMessage", "Book not available");
 			return "issuebook";
 		}
@@ -94,7 +101,6 @@ public class IssueBookController {
 			if (book.getIssueDate().isBefore(book.getReturnDate())) {
 
 				// Book Issue Logic for decreasing the quantity of the book
-				MyLibrary libraryBook = myLibraryRepo.findById(bookId).get();
 				libraryBook.setTotalBooks(libraryBook.getTotalBooks() - 1);
 				myLibraryRepo.save(libraryBook);
 				String name = libraryBook.getBookName();

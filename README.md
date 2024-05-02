@@ -1,9 +1,8 @@
 # LibrarryManagementSystemSpringBoot
-Project Overview
+Project Overview:
   The Library Management System is a Java-based application designed to streamline the management of a library's operations. It allows librarians to efficiently manage the library's resources, such as books, and enables users to perform various tasks, including browsing available books, borrowing, returning, and updating book information.
 
-In Scope
-Student:
+In Scope:
 1. Show Available Books
 2. Add a Book
 3. Issue Book
@@ -11,7 +10,7 @@ Student:
 5. Update Existing Book
 6. Delete Existing Book
 
-Database Design
+Database Design:
 To facilitate the functionalities of the library management system, we propose the following database schema:
 
 Books Table:
@@ -37,7 +36,7 @@ Returned_date: Date when the book was returned by the student.
 Days_delayed: Number of days the book was delayed in return.
 Fine_fees: Fine amount charged for the delayed return of the book.
 
-Conclusion
+Conclusion:
 The Library Management System provides an efficient and user-friendly platform for managing library operations. By enabling librarians to perform tasks such as adding, updating, and deleting books, as well as issuing and returning books, it enhances the overall efficiency and organization of the library.
 This document outlines the main functionalities of the Library Management System, detailing the various actions that users and librarians can perform within the system. It provides a clear overview of the system's features and interactions, facilitating effective communication and understanding of its functionality.
 

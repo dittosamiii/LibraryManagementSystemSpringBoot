@@ -1,4 +1,4 @@
-# LibraryManagementSystemSpringBoot
+# Library Management System SpringBoot
 # Project Overview: 
 The Library Management System is a Java-based application designed to streamline the management of a library's operations. It allows librarians to efficiently manage the library's resources, such as books, and enables users to perform various tasks, including browsing available books, borrowing, returning, and updating book information.
 

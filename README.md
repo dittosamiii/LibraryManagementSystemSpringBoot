@@ -10,5 +10,5 @@ In Scope:
 5. Update Existing Book
 6. Delete Existing Book
 
-Conclusion
+Conclusion:
 The Library Management System provides an efficient and user-friendly platform for managing library operations. By enabling librarians to perform tasks such as adding, updating, and deleting books, as well as issuing and returning books, it enhances the overall efficiency and organization of the library.

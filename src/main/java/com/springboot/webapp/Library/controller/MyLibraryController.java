@@ -1,6 +1,7 @@
 package com.springboot.webapp.Library.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -51,7 +52,7 @@ public class MyLibraryController {
 		String username = (String) model.get("name");
 		MyLibrary book = new MyLibrary(username, 0, "", "", 0);
 		model.put("library", book);
-		return "add-book";
+		return "addbook";
 
 	}
 
@@ -69,10 +70,15 @@ public class MyLibraryController {
 					model.put("errorAuth", error.getDefaultMessage());
 				}
 			}
-			return "add-book";
+			return "addbook";
 		}
 		String username = (String) model.get("name");
 		library.setUsername(username);
+		Optional<MyLibrary> book = mylibraryrepo.findById(library.getBookId());
+		if(book.isPresent()) {
+			model.put("errorBook", "Book Already Present");
+			return "addbook";
+		}
 		mylibraryrepo.save(library);
 
 		return "redirect:library";
@@ -86,7 +92,7 @@ public class MyLibraryController {
 
 		MyLibrary book = mylibraryrepo.findById(bookId).get();
 		model.addAttribute("library", book);
-		return "update-add-book";
+		return "updatelibrarybook";
 
 	}
 
@@ -105,7 +111,7 @@ public class MyLibraryController {
 					model.put("errorAuth", error.getDefaultMessage());
 				}
 			}
-			return "update-add-book";
+			return "updatelibrarybook";
 		}
 
 		String username = (String) model.get("name");
@@ -115,4 +121,13 @@ public class MyLibraryController {
 
 	}
 
+	@GetMapping("delete-book")
+	public String deleteBooks(@RequestParam int bookId, HttpSession session) {
+		if (session.getAttribute("loggedInUser") == null) {
+			return "redirect:login";
+		}
+
+		mylibraryrepo.deleteById(bookId);
+		return "redirect:library";
+	}
 }

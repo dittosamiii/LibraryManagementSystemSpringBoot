@@ -2,6 +2,7 @@ package com.springboot.webapp.Library.controller;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -37,7 +38,6 @@ public class IssueBookController {
 	}
 
 	@GetMapping("/issue")
-	@PostMapping("/issue")
 	public String issueBooksPage(ModelMap model, HttpSession session) {
 		if (session.getAttribute("loggedInUser") == null) {
 			return "redirect:login";
@@ -58,7 +58,7 @@ public class IssueBookController {
 		String username = (String) model.get("name");
 		IssueBooks book = new IssueBooks(0, username, 0, 0, "", "", LocalDate.now(), LocalDate.now());
 		model.put("issueBook", book);
-		return "issue-book";
+		return "issuebook";
 
 	}
 
@@ -77,16 +77,17 @@ public class IssueBookController {
 					model.put("errorStud", error.getDefaultMessage());
 				}
 			}
-			return "issue-book";
+			return "issuebook";
 		}
 
 		String username = (String) model.get("name");
 		book.setUsername(username);
 
-		MyLibrary currBook = myLibraryRepo.findById(bookId).get();
-		if (currBook.getTotalBooks() == 0) {
+		
+		MyLibrary libraryBook = myLibraryRepo.findById(bookId).get();
+		if (libraryBook.getTotalBooks() == 0) {
 			model.put("errorMessage", "Book not available");
-			return "issue-book";
+			return "issuebook";
 		}
 		LocalDate today = LocalDate.now();
 		// Return Date Logic where return date is not before the issue date
@@ -95,8 +96,12 @@ public class IssueBookController {
 			if (book.getIssueDate().isBefore(book.getReturnDate())) {
 
 				// Book Issue Logic for decreasing the quantity of the book
-				MyLibrary libraryBook = myLibraryRepo.findById(bookId).get();
 				libraryBook.setTotalBooks(libraryBook.getTotalBooks() - 1);
+				Optional<MyLibrary> currbook = myLibraryRepo.findById(bookId);
+				if (currbook.isPresent()) {
+					model.put("errorMessage", "Book Not Found");
+					return "issuebook";
+				}
 				myLibraryRepo.save(libraryBook);
 				String name = libraryBook.getBookName();
 				book.setBookName(name);
@@ -105,11 +110,11 @@ public class IssueBookController {
 				return "redirect:issue";
 			} else {
 				model.put("errorMessage", "Invalid Return Date!");
-				return "issue-book";
+				return "issuebook";
 			}
 		} else {
 			model.put("errorMessage1", "Invalid Issue Date!");
-			return "issue-book";
+			return "issuebook";
 		}
 
 	}
@@ -121,7 +126,7 @@ public class IssueBookController {
 		}
 		IssueBooks book = issueBookRepo.findById(sequence).get();
 		model.addAttribute("issueBook", book);
-		return "issue-book";
+		return "issuebook";
 
 	}
 
@@ -140,7 +145,7 @@ public class IssueBookController {
 					model.put("errorStud", error.getDefaultMessage());
 				}
 			}
-			return "issue-book";
+			return "issuebook";
 		}
 
 		String username = (String) model.get("name");
@@ -157,7 +162,7 @@ public class IssueBookController {
 			}
 		} else {
 			model.put("errorMessage1", "Invalid Issue Date!");
-			return "issue-book";
+			return "issuebook";
 		}
 	}
 

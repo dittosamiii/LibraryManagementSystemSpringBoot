@@ -14,7 +14,7 @@ public class MyLibrary {
 	@Min(value = 0, message = "Invalid Amount")
 	private int totalBooks;
 	private String bookName;
-	@Pattern(regexp = "^[a-zA-Z\\s]*$", message = "Invalid Name")
+	@Pattern(regexp = "^[a-zA-Z.\\s]*$", message = "Invalid Name")
 	private String authorName;
 	private String username;
 

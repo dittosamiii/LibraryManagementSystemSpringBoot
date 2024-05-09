@@ -18,7 +18,7 @@ public class IssueBooks {
 	@Min(value = 1, message = "Invalid Id")
 	private int studentId;
 	private String username;
-	@Pattern(regexp = "^[a-zA-Z\\s]*$", message = "Invalid Name")
+	@Pattern(regexp = "^[a-zA-Z.\\s]*$", message = "Invalid Name")
 	private String studentName;
 	private String bookName;
 	private LocalDate issueDate;

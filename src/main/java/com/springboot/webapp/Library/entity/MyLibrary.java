@@ -9,7 +9,7 @@ import jakarta.validation.constraints.Pattern;
 public class MyLibrary {
 
 	@Id
-	@Min(value = 1)
+	@Min(value = 1, message = "Invalid Amount")
 	private int bookId;
 	@Min(value = 0, message = "Invalid Amount")
 	private int totalBooks;

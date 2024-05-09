@@ -81,14 +81,19 @@ public class IssueBookController {
 		}
 
 		String username = (String) model.get("name");
-		book.setUsername(username);
 
+		Optional<MyLibrary> currbook = myLibraryRepo.findById(bookId);
+		if (!currbook.isPresent()) {
+			model.put("errorMessage", "Book Not Found");
+			return "issuebook";
+		}
 		
 		MyLibrary libraryBook = myLibraryRepo.findById(bookId).get();
 		if (libraryBook.getTotalBooks() == 0) {
 			model.put("errorMessage", "Book not available");
 			return "issuebook";
 		}
+		book.setUsername(username);
 		LocalDate today = LocalDate.now();
 		// Return Date Logic where return date is not before the issue date
 		// Check if issueDate is before returnDate
@@ -97,11 +102,6 @@ public class IssueBookController {
 
 				// Book Issue Logic for decreasing the quantity of the book
 				libraryBook.setTotalBooks(libraryBook.getTotalBooks() - 1);
-				Optional<MyLibrary> currbook = myLibraryRepo.findById(bookId);
-				if (currbook.isPresent()) {
-					model.put("errorMessage", "Book Not Found");
-					return "issuebook";
-				}
 				myLibraryRepo.save(libraryBook);
 				String name = libraryBook.getBookName();
 				book.setBookName(name);

@@ -107,7 +107,7 @@ public class FineController {
 
 			if (book.getReturnedDate().isBefore(book.getReturnDate())
 					|| book.getReturnDate().isEqual(book.getReturnedDate())) {
-				return "redirect:library";
+				return "redirect:issue";
 			} else {
 				LocalDate returnDate = book.getReturnDate();
 				LocalDate returnedDate = book.getReturnedDate();

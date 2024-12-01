@@ -83,7 +83,7 @@ public class IssueBookController {
 		String username = (String) model.get("name");
 
 		Optional<MyLibrary> currbook = myLibraryRepo.findById(bookId);
-		if (!currbook.isPresent()) {
+		if (currbook.isEmpty()) {
 			model.put("errorMessage", "Book Not Found");
 			return "issuebook";
 		}

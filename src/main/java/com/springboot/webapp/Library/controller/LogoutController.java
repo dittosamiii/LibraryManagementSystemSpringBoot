@@ -19,7 +19,7 @@ public class LogoutController {
 	}
 
 	@PostMapping("/logout")
-	public String postLogout(@RequestParam(value = "cancel", required = false) String cancel, HttpSession session) {
+	public String postLogout(@RequestParam(required = false) String cancel, HttpSession session) {
 		if ("true".equals(cancel)) {
 			return "redirect:welcome"; // Redirect to the welcome page
 		}

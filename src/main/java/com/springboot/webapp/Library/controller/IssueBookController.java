@@ -158,7 +158,7 @@ public class IssueBookController {
 				return "redirect:issue";
 			} else {
 				model.put("errorMessage", "Invalid Return Date!");
-				return "issue-book";
+				return "issuebook";
 			}
 		} else {
 			model.put("errorMessage1", "Invalid Issue Date!");
